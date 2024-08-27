@@ -19,8 +19,16 @@ app.controller("myCtrl", function ($scope, $location, $http) {
     }
 
     // Get list phone
-    $http.get(`${$location.absUrl()}/api/get-phones.php`)
+    $http.get(`http://localhost/api/get-phones.php`)
         .then(function(response){
             $scope.phones = response.data;
         });
+});
+
+app.controller('CreateProduct', function($scope) {
+    $scope.uploadFile = function(event){
+        let files = event.target.files[0];
+        $scope.previewImageUrl = URL.createObjectURL(files);
+        $scope.$apply();
+    };
 });

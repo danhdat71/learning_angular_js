@@ -1,0 +1,34 @@
+<div ng-controller="CreateProduct">
+    <form action="" name="formCreate">
+        <h3>Create new phone</h3>
+        <div class="form-group">
+            <input
+                type="text"
+                placeholder="Type your phone name"
+                ng-model="name"
+                name="name"
+                required
+            >
+            <div
+                class="text-danger"
+                ng-show="false"
+            >Bắt buộc</div>
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="Type your phone price">
+        </div>
+        <div class="form-group">
+            <div><input
+                type="file"
+                ng-model="image"
+                custom-on-change="uploadFile"
+            ></div>
+            <img
+                style="width: 150px;"
+                src="{{previewImageUrl}}"
+                class="mt-2"
+            >
+        </div>
+        <button class="btn btn-info">Submit</button>
+    </form>
+</div>

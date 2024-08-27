@@ -1,0 +1,23 @@
+<div ng-controller="myCtrl">
+    <div class="pb-3">
+        <input type="text" ng-model="keyword" ng-enter-press="searchKeyWord()" placeholder="Tìm kiếm...">
+        <select ng-model="orderPrice" ng-options="item as item.label for item in items track by item.id">
+        </select>
+        <button ng-click="submitSearch()">Tìm kiếm</button>
+    </div>
+
+    <div class="row">
+        <div
+            class="col-lg-3"
+            ng-repeat="phone in phones | orderBy:orderByValue | filter:keywordValue"
+        >
+            <div class="card w-100">
+                <div class="p-3"><img class="card-img-top" src="{{phone.img}}" alt="Card image cap"></div>
+                <div class="card-body">
+                    <h5 class="card-title">{{phone.name | wrap}}</h5>
+                    <p class="card-text">{{phone.price | vnd}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
