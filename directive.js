@@ -27,3 +27,22 @@ app.directive('customOnChange', function () {
     };
 });
 
+app.directive('customInputMaxFileSize', function(){
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, mCtrl) {
+            element.on('change', function(e){
+                let fileSize = e.target.files[0].size / 1024;
+                let maxFileSize = attrs.customInputMaxFileSize;
+                scope.$apply(function() {
+                    if (fileSize > maxFileSize) {
+                        mCtrl.$setValidity('fileSize', false);
+                    } else {
+                        mCtrl.$setValidity('fileSize', true);
+                    }
+                });
+            });
+        }
+    }
+});

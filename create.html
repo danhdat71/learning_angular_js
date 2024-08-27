@@ -8,27 +8,56 @@
                 ng-model="name"
                 name="name"
                 required
+                ng-maxlength="255"
             >
             <div
                 class="text-danger"
-                ng-show="false"
-            >Bắt buộc</div>
+                ng-show="formCreate.name.$error.required && formCreate.name.$touched"
+            >Vui lòng điền tên sản phẩm</div>
+            <div
+                class="text-danger"
+                ng-show="formCreate.name.$error.maxlength && formCreate.name.$touched"
+            >Email không quá 255 ký tự</div>
         </div>
         <div class="form-group">
-            <input type="text" placeholder="Type your phone price">
+            <input
+                type="text"
+                placeholder="Type your phone price"
+                ng-model="price"
+                name="price"
+                required
+                ng-pattern="/^\d+$/"
+            >
+            <div
+                class="text-danger"
+                ng-show="formCreate.price.$error.required && formCreate.price.$touched"
+            >Vui lòng điền giá sản phẩm</div>
+            <div
+                class="text-danger"
+                ng-show="formCreate.price.$error.pattern && formCreate.price.$touched"
+            >Giá sản phẩm sai định dạng</div>
         </div>
         <div class="form-group">
-            <div><input
-                type="file"
-                ng-model="image"
-                custom-on-change="uploadFile"
-            ></div>
+            <div>
+                <input
+                    type="file"
+                    ng-model="image"
+                    name="image"
+                    custom-on-change="uploadFile"
+                    custom-input-max-file-size="500"
+                    required
+                >
+            </div>
+            <div
+                class="text-danger"
+                ng-show="formCreate.image.$error.fileSize && formCreate.image.$touched"
+            >File quá 500KB</div>
             <img
                 style="width: 150px;"
                 src="{{previewImageUrl}}"
                 class="mt-2"
             >
         </div>
-        <button class="btn btn-info">Submit</button>
+        <button class="btn btn-info" ng-disabled="formCreate.$invalid">Submit</button>
     </form>
 </div>
