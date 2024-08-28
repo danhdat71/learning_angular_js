@@ -29,6 +29,5 @@ app.controller('CreateProduct', function($scope) {
     $scope.uploadFile = function(event){
         let files = event.target.files[0];
         $scope.previewImageUrl = URL.createObjectURL(files);
-        $scope.$apply();
     };
 });
