@@ -27,22 +27,34 @@ app.directive('customOnChange', function () {
     };
 });
 
-app.directive('customInputMaxFileSize', function(){
+app.directive('customInputValidImage', function(){
     return {
         restrict: 'A',
         require: 'ngModel',
-        link: function(scope, element, attrs, mCtrl) {
-            element.on('change', function(e){
-                let fileSize = e.target.files[0].size / 1024;
-                let maxFileSize = attrs.customInputMaxFileSize;
-                scope.$apply(function() {
-                    if (fileSize > maxFileSize) {
-                        mCtrl.$setValidity('fileSize', false);
-                    } else {
-                        mCtrl.$setValidity('fileSize', true);
-                    }
+        link: function(scope, elem, attrs, ngModel) {
+            var validFormats = ['jpg','jpeg','png'];
+            elem.on('change', function () {
+                validImage(false);
+                scope.$apply(function () {
+                    ngModel.$render();
                 });
             });
+            ngModel.$render = function () {
+                ngModel.$setViewValue(elem.val());
+            };
+            function validImage(bool) {
+                ngModel.$setValidity('validExtension', bool);
+            }
+            ngModel.$parsers.push(function(value) {
+                var ext = value.substr(value.lastIndexOf('.')+1);
+                if(ext=='') return;
+                if(validFormats.indexOf(ext) == -1){
+                    return value;
+                }
+                validImage(true);
+                return value;
+            });
+            
         }
     }
 });

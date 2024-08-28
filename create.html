@@ -44,14 +44,14 @@
                     ng-model="image"
                     name="image"
                     custom-on-change="uploadFile"
-                    custom-input-max-file-size="500"
-                    required
+                    custom-input-valid-image
+                    file-size="500"
                 >
             </div>
             <div
                 class="text-danger"
-                ng-show="formCreate.image.$error.fileSize && formCreate.image.$touched"
-            >File quá 500KB</div>
+                ng-show="formCreate.image.$error.validExtension && formCreate.image.$touched"
+            >Ảnh sai định dạng</div>
             <img
                 style="width: 150px;"
                 src="{{previewImageUrl}}"
