@@ -25,9 +25,25 @@ app.controller("myCtrl", function ($scope, $location, $http) {
         });
 });
 
-app.controller('CreateProduct', function($scope) {
+app.controller('CreateProduct', function($scope, $http, $location) {
     $scope.uploadFile = function(event){
         let files = event.target.files[0];
         $scope.previewImageUrl = URL.createObjectURL(files);
     };
+
+    $scope.submitCreatePhone = function() {
+        var phoneData = new FormData();
+        phoneData.append('name', $scope.name);
+        phoneData.append('price', $scope.price);
+        phoneData.append('image', $scope.image);
+        
+        $http({
+            headers: { 'Content-Type': undefined },
+            method: 'post',
+            url: 'http://localhost/api/create-phone.php',
+            data: phoneData,
+        }).then(function(response){
+            $location.path("/");
+        });
+    }
 });

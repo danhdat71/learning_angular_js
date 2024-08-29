@@ -1,5 +1,5 @@
 <div ng-controller="CreateProduct">
-    <form action="" name="formCreate">
+    <form name="formCreate" ng-submit="submitCreatePhone()">
         <h3>Create new phone</h3>
         <div class="form-group">
             <input
@@ -59,6 +59,9 @@
                 class="mt-2"
             >
         </div>
-        <button class="btn btn-info" ng-disabled="formCreate.$invalid">Submit</button>
+        <button
+            class="btn btn-info"
+            ng-disabled="formCreate.$invalid"
+        >Submit</button>
     </form>
 </div>
