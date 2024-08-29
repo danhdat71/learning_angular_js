@@ -45,7 +45,7 @@
                     name="image"
                     custom-on-change="uploadFile"
                     custom-input-valid-extension="jpg,png"
-                    file-size="500"
+                    custom-input-file-size="100"
                     required
                 >
             </div>
@@ -53,6 +53,10 @@
                 class="text-danger"
                 ng-show="formCreate.image.$error.validExtension && formCreate.image.$touched"
             >Ảnh sai định dạng</div>
+            <div
+                class="text-danger"
+                ng-show="formCreate.image.$error.validFileSize && formCreate.image.$touched"
+            >Kích thước ảnh quá lớn</div>
             <img
                 style="width: 150px;"
                 src="{{previewImageUrl}}"

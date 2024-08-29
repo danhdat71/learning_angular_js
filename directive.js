@@ -34,7 +34,7 @@ app.directive('customInputValidExtension', function () {
         link: function (scope, element, attrs, ngModel) {
             var imageExtension = attrs.customInputValidExtension.split(',');
 
-            function validateFileSize(file) {
+            function validateFileExtension(file) {
                 let fileName = file.name.split('.').pop();
                 if (!imageExtension.includes(fileName)) {
                     ngModel.$setValidity('validExtension', false);
@@ -45,12 +45,37 @@ app.directive('customInputValidExtension', function () {
                 return file;
             }
 
-            ngModel.$parsers.push(validateFileSize);
+            ngModel.$parsers.push(validateFileExtension);
 
             element.on('change', function () {
                 scope.$apply(function () {
                     ngModel.$setViewValue(element[0].files[0]);
                 });
+            });
+        }
+    }
+});
+
+app.directive('customInputFileSize', function(){
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModel) {
+            let maxFileSizeKb = parseInt(attrs.customInputFileSize) * 1024;
+            element.on('change', function(){
+                scope.$apply(function(){
+                    ngModel.$setViewValue(element[0].files[0]);
+                });
+            });
+
+            ngModel.$parsers.push(function(file) {
+                if (file.size > maxFileSizeKb) {
+                    ngModel.$setValidity('validFileSize', false);
+                } else {
+                    ngModel.$setValidity('validFileSize', true);
+                }
+
+                return file;
             });
         }
     }
