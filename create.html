@@ -68,4 +68,9 @@
             ng-disabled="formCreate.$invalid"
         >Submit</button>
     </form>
+
+    <div ng-init="say=1;"></div>
+    <test say="say"></test>
+    <button ng-click="say=2">Click</button>
+    <div>{{say}}</div>
 </div>
