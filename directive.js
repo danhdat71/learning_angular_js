@@ -27,21 +27,22 @@ app.directive('customOnChange', function () {
     };
 });
 
-app.directive('customInputValidImage', function () {
+app.directive('customInputValidExtension', function () {
     return {
         restrict: 'A',
         require: 'ngModel',
         link: function (scope, element, attrs, ngModel) {
-            var maxFileSize = parseInt(attrs.customInputValidImage);
+            var imageExtension = attrs.customInputValidExtension.split(',');
 
-            function validateFileSize(value) {
-                if (value.size > maxFileSize) {
+            function validateFileSize(file) {
+                let fileName = file.name.split('.').pop();
+                if (!imageExtension.includes(fileName)) {
                     ngModel.$setValidity('validExtension', false);
                 } else {
                     ngModel.$setValidity('validExtension', true);
                 }
 
-                return value;
+                return file;
             }
 
             ngModel.$parsers.push(validateFileSize);
