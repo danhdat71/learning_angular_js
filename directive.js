@@ -80,3 +80,15 @@ app.directive('customInputFileSize', function(){
         }
     }
 });
+
+app.directive('customInputPositiveInt', function(){
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModel) {
+            ngModel.$validators.positiveNumber = function(value) {
+                return value >= 0;
+            }
+        }
+    }
+});

@@ -27,15 +27,20 @@
                 name="price"
                 required
                 ng-pattern="/^\d+$/"
+                custom-input-positive-int
             >
             <div
                 class="text-danger"
                 ng-show="formCreate.price.$error.required && formCreate.price.$touched"
             >Vui lòng điền giá sản phẩm</div>
-            <div
+            <!-- <div
                 class="text-danger"
                 ng-show="formCreate.price.$error.pattern && formCreate.price.$touched"
-            >Giá sản phẩm sai định dạng</div>
+            >Giá sản phẩm sai định dạng</div> -->
+            <div
+                class="text-danger"
+                ng-show="formCreate.price.$error.positiveNumber && formCreate.price.$touched"
+            >Giá lớn hơn hoặc bằng 0</div>
         </div>
         <div class="form-group">
             <div>
